@@ -1,4 +1,8 @@
-import type { Prompt, CompareResponse } from './types';
+import type {
+  CompareResponse,
+  ModelConfig,
+  OptimizeResult,
+} from './types';
 
 const BASE = '/api';
 
@@ -16,17 +20,22 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  listPrompts: () => request<Prompt[]>(`${BASE}/prompts`),
-  createPrompt: (data: { title: string; content: string }) =>
-    request<Prompt>(`${BASE}/prompts`, {
+  listModels: () => request<ModelConfig[]>(`${BASE}/models`),
+
+  optimize: (data: { prompt: string; modelId: string; apiKey: string }) =>
+    request<OptimizeResult>(`${BASE}/optimize`, {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-  deletePrompt: (id: number) =>
-    request<void>(`${BASE}/prompts/${id}`, { method: 'DELETE' }),
-  compare: (input: string, promptIds: number[]) =>
+
+  compare: (data: {
+    prompts: string[];
+    input: string;
+    modelId: string;
+    apiKey: string;
+  }) =>
     request<CompareResponse>(`${BASE}/compare`, {
       method: 'POST',
-      body: JSON.stringify({ input, promptIds }),
+      body: JSON.stringify(data),
     }),
 };

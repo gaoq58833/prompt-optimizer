@@ -1,13 +1,20 @@
-export interface Prompt {
-  id: number;
-  title: string;
-  content: string;
-  created_at: string;
+export interface ModelConfig {
+  id: string;
+  name: string;
+  provider: string;
+  baseUrl: string;
+  modelId: string;
+  format: 'openai' | 'anthropic';
+  keyUrl: string;
 }
 
-export interface ComparisonResult {
-  promptId: number;
-  promptTitle: string;
+export interface OptimizeResult {
+  optimizedPrompt: string;
+  durationMs: number;
+}
+
+export interface CompareItemResult {
+  prompt: string;
   output: string;
   durationMs: number;
   error?: string;
@@ -15,5 +22,5 @@ export interface ComparisonResult {
 
 export interface CompareResponse {
   input: string;
-  results: ComparisonResult[];
+  results: CompareItemResult[];
 }

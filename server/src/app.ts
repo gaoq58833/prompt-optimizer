@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import promptsRouter from './routes/prompts';
 import compareRouter from './routes/compare';
+import optimizeRouter from './routes/optimize';
+import modelsRouter from './routes/models';
 
 export function createApp() {
   const app = express();
@@ -13,8 +15,10 @@ export function createApp() {
     res.json({ status: 'ok' });
   });
 
+  app.use('/api/models', modelsRouter);
   app.use('/api/prompts', promptsRouter);
   app.use('/api/compare', compareRouter);
+  app.use('/api/optimize', optimizeRouter);
 
   return app;
 }
