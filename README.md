@@ -7,7 +7,7 @@
 - **双入口流程**：既可直接对比，也可先优化提示词再对比
 - **智能提示词优化**：内置「提示词优化专家」系统提示词，选好模型后自动塞入上下文进行优化
 - **效果并排对比**：2×2 布局展示「我的提示词 / 原来的输出 / 优化后的提示词 / 优化后的输出」
-- **10 个主流大模型**：覆盖国内外主流服务商，支持 OpenAI 与 Anthropic 两种接口格式
+- **15 个主流大模型**：5 个国外 + 10 个国产，覆盖主流服务商，支持 OpenAI 与 Anthropic 两种接口格式
 - **用户自填 API Key**：Key 仅保存在浏览器本地（localStorage），不上传到服务器，无需登录鉴权
 - **一键复制**：优化结果支持一键复制到剪贴板
 - **响应式设计**：适配桌面端与移动端
@@ -21,6 +21,10 @@
 
 ## 内置模型
 
+共 15 个主流大模型（5 个国外 + 10 个国产）。
+
+### 国外模型
+
 | 模型 | 服务商 | 接口格式 |
 |------|--------|----------|
 | GPT-6 Astra | OpenAI | OpenAI |
@@ -28,11 +32,21 @@
 | Claude Sonnet 5.5 | Anthropic | Anthropic |
 | Gemini 4 Argon | Google | OpenAI |
 | Grok 4.7 | xAI | OpenAI |
+
+### 国产模型
+
+| 模型 | 服务商 | 接口格式 |
+|------|--------|----------|
 | DeepSeek-V4.1-Flash | 深度求索 | OpenAI |
 | 通义千问 Qwen3.8-Max | 阿里 | OpenAI |
 | 智谱 GLM-5.3 | 智谱AI | OpenAI |
 | Kimi K3 | 月之暗面 | OpenAI |
 | 豆包 Doubao-Seed-2.1-Pro | 字节跳动 | OpenAI |
+| 文心一言 ERNIE 5.0 | 百度 | OpenAI |
+| 讯飞星火 4.0 Ultra | 科大讯飞 | OpenAI |
+| 腾讯混元 Hunyuan-Turbo | 腾讯 | OpenAI |
+| MiniMax-M3 | MiniMax | OpenAI |
+| 阶跃星辰 Step-3.7 Flash | 阶跃星辰 | OpenAI |
 
 ## 快速开始
 
