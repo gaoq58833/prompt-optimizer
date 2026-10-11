@@ -1,0 +1,18 @@
+{
+  "name": "prompt-optimizer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "提示词优化器 - 对比不同提示词的效果差异",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
