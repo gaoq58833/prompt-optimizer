@@ -1,6 +1,31 @@
 # 提示词优化器 (Prompt Optimizer)
 
-一个开源免费的提示词优化与对比工具。粘贴你的提示词，选择主流大模型，一键生成优化后的提示词，并并排对比优化前后的输出效果。
+> 让每一次提问，都得到更好的回答。
+
+<p align="center">
+  <img alt="GitHub stars" src="https://img.shields.io/github/stars/gaoq58833/prompt-optimizer?style=flat-square&color=6366f1" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" />
+  <img alt="Express" src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" />
+  <img alt="Free & Open Source" src="https://img.shields.io/badge/免费开源-10b981?style=flat-square" />
+</p>
+
+一个**开源免费**的提示词优化与对比工具：粘贴提示词 → 选择主流大模型 → 一键生成优化版本 → 并排对比前后输出，让 AI 的回答更贴合你的预期。支持亮色 / 夜间两种主题。
+
+<p align="center">
+  <a href="https://prompt-optimizer-gaoquan1.vercel.app/"><strong>🌐 在线体验</strong></a>
+  &nbsp;·&nbsp;
+  <a href="#快速开始"><strong>🚀 本地运行</strong></a>
+  &nbsp;·&nbsp;
+  <a href="#内置模型"><strong>🤖 支持模型</strong></a>
+</p>
+
+## 预览
+
+<div align="center">
+  <img src="./docs/screenshot.png" alt="提示词优化器界面预览" width="800" />
+</div>
 
 ## 功能特性
 
