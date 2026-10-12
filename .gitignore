@@ -153,6 +153,10 @@ build/
 *.sqlite3
 server/data/
 
+# veFaaS 部署产物
+server/public/
+.vefaas/
+
 # Editor / OS
 .idea/
 .DS_Store
