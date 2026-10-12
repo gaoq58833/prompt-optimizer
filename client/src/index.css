@@ -1,12 +1,45 @@
 :root {
   font-family: system-ui, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   line-height: 1.5;
-  color: #1f2937;
-  background: #f3f4f6;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* 设计变量 */
+  --bg: #f5f6fb;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --border: #e7e9f2;
+  --border-strong: #d8dbe8;
+
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-soft: #94a3b8;
+
+  --primary: #6366f1;
+  --primary-strong: #4f46e5;
+  --primary-grad: linear-gradient(135deg, #6366f1, #4f46e5);
+  --primary-soft: rgba(99, 102, 241, 0.12);
+
+  --accent: #10b981;
+  --accent-strong: #059669;
+  --accent-grad: linear-gradient(135deg, #34d399, #059669);
+  --accent-soft: rgba(16, 185, 129, 0.12);
+
+  --danger: #ef4444;
+
+  --radius-lg: 18px;
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.07), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.12), 0 6px 16px rgba(15, 23, 42, 0.06);
+  --ring: 0 0 0 3px rgba(99, 102, 241, 0.18);
+
+  color: var(--text);
+  background: var(--bg);
 }
 
 * {
@@ -16,6 +49,11 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background:
+    radial-gradient(1100px 560px at 12% -12%, rgba(99, 102, 241, 0.12), transparent 62%),
+    radial-gradient(960px 520px at 102% -6%, rgba(16, 185, 129, 0.1), transparent 58%),
+    var(--bg);
+  background-attachment: fixed;
 }
 
 #root {
@@ -26,9 +64,84 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-weight: 600;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
 }
 
 button {
   font-family: inherit;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+/* ============ 夜间模式 ============ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0b0d12;
+  --surface: #16181f;
+  --surface-soft: #1b1e26;
+  --border: #262a35;
+  --border-strong: #343a48;
+
+  --text: #e6e8ee;
+  --text-muted: #9aa3b5;
+  --text-soft: #6b7488;
+
+  --primary: #818cf8;
+  --primary-strong: #a5b4fc;
+  --primary-grad: linear-gradient(135deg, #6366f1, #4f46e5);
+  --primary-soft: rgba(129, 140, 248, 0.14);
+
+  --accent: #34d399;
+  --accent-strong: #6ee7b7;
+  --accent-soft: rgba(52, 211, 153, 0.14);
+
+  --danger: #f87171;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --ring: 0 0 0 3px rgba(129, 140, 248, 0.25);
+}
+
+:root[data-theme='dark'] body {
+  background:
+    radial-gradient(1100px 560px at 12% -12%, rgba(99, 102, 241, 0.16), transparent 62%),
+    radial-gradient(960px 520px at 102% -6%, rgba(16, 185, 129, 0.1), transparent 58%),
+    var(--bg);
+}
+
+/* 滚动条（Webkit） */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd2e0;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aab3c6;
+  background-clip: content-box;
+}
+
+:root[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #3a4050;
+  background-clip: content-box;
+}
+
+:root[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #4c5468;
+  background-clip: content-box;
 }

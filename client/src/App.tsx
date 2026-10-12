@@ -4,9 +4,20 @@ import type { CompareResponse, ModelConfig } from './types';
 import './App.css';
 
 type View = 'home' | 'optimize' | 'compare';
+type Theme = 'light' | 'dark';
+
+/** 初始主题：优先读取本地记录，否则跟随系统偏好 */
+function getInitialTheme(): Theme {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light' || saved === 'dark') return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 
 function App() {
   const [view, setView] = useState<View>('home');
+
+  // 主题（亮色 / 夜间）
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   // 模型与配置
   const [models, setModels] = useState<ModelConfig[]>([]);
@@ -23,6 +34,12 @@ function App() {
   const [compareResult, setCompareResult] = useState<CompareResponse | null>(null);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // 应用主题到根元素并持久化
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     api.listModels().then((list) => {
@@ -135,6 +152,18 @@ function App() {
     }
   };
 
+  // 主题切换按钮
+  const themeToggle = (
+    <button
+      className="theme-toggle"
+      onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+      title={theme === 'dark' ? '切换为亮色模式' : '切换为夜间模式'}
+      aria-label="切换主题"
+    >
+      {theme === 'dark' ? '☀️' : '🌙'}
+    </button>
+  );
+
   const configBar = (
     <section className="config-bar">
       <div className="config-item">
@@ -178,9 +207,11 @@ function App() {
   if (view === 'home') {
     return (
       <div className="app">
+        {themeToggle}
         <header className="home-header">
           <h1>提示词优化器</h1>
           <p className="subtitle">对比不同提示词的效果差异，让 AI 输出更符合预期</p>
+          <div className="hero-badge">✦ 开源免费 · 支持多家主流大模型</div>
         </header>
 
         <div className="entry-cards">
@@ -203,6 +234,7 @@ function App() {
   if (view === 'optimize') {
     return (
       <div className="app">
+        {themeToggle}
         <div className="topbar">
           <button className="back-btn" onClick={() => setView('home')}>
             ← 返回
@@ -239,6 +271,7 @@ function App() {
 
   return (
     <div className="app">
+      {themeToggle}
       <div className="topbar">
         <button className="back-btn" onClick={() => setView('home')}>
           ← 返回
