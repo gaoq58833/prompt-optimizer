@@ -30,8 +30,8 @@
 | GPT-6 Astra | OpenAI | OpenAI |
 | Claude Opus 5.5 | Anthropic | Anthropic |
 | Claude Sonnet 5.5 | Anthropic | Anthropic |
-| Gemini 4 Argon | Google | OpenAI |
-| Grok 4.7 | xAI | OpenAI |
+| Gemini 3.8 Flash | Google | OpenAI |
+| Grok 4.6 | xAI | OpenAI |
 
 ### 国产模型
 
