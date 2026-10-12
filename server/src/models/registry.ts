@@ -141,13 +141,13 @@ export const MODELS: ModelConfig[] = [
     keyUrl: 'https://console.xfyun.cn/',
   },
   {
-    id: 'hunyuan-turbo',
-    name: '腾讯混元 Hunyuan-Turbo',
+    id: 'hy3',
+    name: '腾讯混元 Hy3',
     provider: '腾讯',
-    baseUrl: 'https://api.hunyuan.cloud.tencent.com/v1',
-    modelId: 'hunyuan-turbo',
+    baseUrl: 'https://tokenhub.tencentmaas.com/v1',
+    modelId: 'hy3',
     format: 'openai',
-    keyUrl: 'https://console.cloud.tencent.com/hunyuan',
+    keyUrl: 'https://console.cloud.tencent.com/tokenhub/apikey',
   },
   {
     id: 'minimax-m3',

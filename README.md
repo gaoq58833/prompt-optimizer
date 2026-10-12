@@ -45,7 +45,7 @@
 | 豆包 Doubao-Seed-2.1-Pro | 字节跳动 | OpenAI |
 | 文心一言 ERNIE 5.0 | 百度 | OpenAI |
 | 讯飞星火 4.0 Ultra | 科大讯飞 | OpenAI |
-| 腾讯混元 Hunyuan-Turbo | 腾讯 | OpenAI |
+| 腾讯混元 Hy3 | 腾讯 | OpenAI |
 | MiniMax-M3 | MiniMax | OpenAI |
 | 阶跃星辰 Step-3.7 Flash | 阶跃星辰 | OpenAI |
 
