@@ -3,7 +3,7 @@ import fs from 'fs';
 import type { Database } from 'better-sqlite3';
 
 // serverless 环境（veFaaS/Vercel）中 /tmp 是唯一可写目录；本地开发默认 data 目录
-const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', '..', 'data');
 const DB_PATH = path.join(DATA_DIR, 'app.sqlite');
 
 let dbInstance: Database | null = null;
