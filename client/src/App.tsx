@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { api } from './api';
 import type { CompareResponse, ModelConfig } from './types';
 import './App.css';
@@ -21,6 +21,8 @@ function App() {
 
   // 模型与配置
   const [models, setModels] = useState<ModelConfig[]>([]);
+  const [modelsLoading, setModelsLoading] = useState(true);
+  const [modelsError, setModelsError] = useState('');
   const [selectedModelId, setSelectedModelId] = useState('');
   const [apiKey, setApiKey] = useState('');
 
@@ -35,19 +37,36 @@ function App() {
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
 
-  // 应用主题到根元素并持久化
+  // 应用主题到根元素并持久化，同时同步浏览器顶栏 theme-color
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    const color = theme === 'dark' ? '#0b0d12' : '#f5f6fb';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color);
   }, [theme]);
 
   useEffect(() => {
-    api.listModels().then((list) => {
-      setModels(list);
-      if (list.length > 0) setSelectedModelId(list[0].id);
-    });
+    let cancelled = false;
+    setModelsLoading(true);
+    api
+      .listModels()
+      .then((list) => {
+        if (cancelled) return;
+        setModels(list);
+        if (list.length > 0) setSelectedModelId(list[0].id);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setModelsError(err instanceof Error ? err.message : '模型列表加载失败');
+      })
+      .finally(() => {
+        if (!cancelled) setModelsLoading(false);
+      });
     const saved = localStorage.getItem('llm_api_key');
     if (saved) setApiKey(saved);
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const selectedModel = models.find((m) => m.id === selectedModelId);
@@ -152,55 +171,67 @@ function App() {
     }
   };
 
-  // 主题切换按钮
-  const themeToggle = (
-    <button
-      className="theme-toggle"
-      onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
-      title={theme === 'dark' ? '切换为亮色模式' : '切换为夜间模式'}
-      aria-label="切换主题"
-    >
-      {theme === 'dark' ? '☀️' : '🌙'}
-    </button>
+  // 主题切换按钮（不随输入变化，memo 化避免重复创建）
+  const themeToggle = useMemo(
+    () => (
+      <button
+        className="theme-toggle"
+        onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+        title={theme === 'dark' ? '切换为亮色模式' : '切换为夜间模式'}
+        aria-label="切换主题"
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
+    ),
+    [theme],
   );
 
-  const configBar = (
-    <section className="config-bar">
-      <div className="config-item">
-        <label>模型</label>
-        <select
-          value={selectedModelId}
-          onChange={(e) => setSelectedModelId(e.target.value)}
-        >
-          {models.map((m) => (
-            <option key={m.id} value={m.id}>
-              {m.provider} · {m.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="config-item">
-        <label>
-          API Key
-          {selectedModel && (
-            <a
-              href={selectedModel.keyUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="key-hint"
-            >
-              获取 Key
-            </a>
-          )}
-        </label>
-        <input
-          type="password"
-          placeholder="填入对应服务商的 API Key（留空则用 mock 模式）"
-          value={apiKey}
-          onChange={(e) => handleApiKeyChange(e.target.value)}
-        />
-      </div>
-    </section>
+  const configBar = useMemo(
+    () => (
+      <section className="config-bar">
+        <div className="config-item">
+          <label>模型</label>
+          <select
+            value={selectedModelId}
+            onChange={(e) => setSelectedModelId(e.target.value)}
+            disabled={modelsLoading || !!modelsError}
+          >
+            {modelsLoading && <option value="">加载中...</option>}
+            {modelsError && <option value="">加载失败</option>}
+            {!modelsLoading &&
+              !modelsError &&
+              models.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.provider} · {m.name}
+                </option>
+              ))}
+          </select>
+          {modelsError && <span className="field-error">{modelsError}</span>}
+        </div>
+        <div className="config-item">
+          <label>
+            API Key
+            {selectedModel && (
+              <a
+                href={selectedModel.keyUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="key-hint"
+              >
+                获取 Key
+              </a>
+            )}
+          </label>
+          <input
+            type="password"
+            placeholder="填入对应服务商的 API Key（留空则用 mock 模式）"
+            value={apiKey}
+            onChange={(e) => handleApiKeyChange(e.target.value)}
+          />
+        </div>
+      </section>
+    ),
+    [models, modelsLoading, modelsError, selectedModelId, selectedModel, apiKey],
   );
 
   // 首页

@@ -445,6 +445,14 @@
   margin: 0;
 }
 
+/* 模型加载失败的行内提示 */
+.field-error {
+  display: block;
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 /* 按钮加载动画 */
 .spinner {
   width: 14px;
